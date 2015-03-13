@@ -4,9 +4,11 @@
 void genera_mensaje(FILE *file)
 {
 	int linea = 0;
-
+	int resError;
 	while (linea < 6) {
-		fprintf(file, "Linea %d: Mensaje de prueba\n", linea);
+		resError=fprintf(file, "Linea %d: Mensaje de prueba\n", linea);
+		if(resError < 0)
+			return NULL;
 		linea++;
 	}
 	rewind(file);
@@ -17,7 +19,7 @@ int main (void)
 	FILE *file = fopen("datos.dat", "a+");
 	char *code;
 	size_t n = 0;
-	int c;
+	int c,resErr;
 
 	if (file == NULL)
 		return -1;
@@ -30,5 +32,8 @@ int main (void)
 	}
 
 	free(code);
+	resErr=fclose(file);
+	if(resErr!=0)
+		return NULL;
 	return 0;
 }

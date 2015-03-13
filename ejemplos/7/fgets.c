@@ -25,5 +25,7 @@ int main (void)
 	}
 
 	free(code);
+	if(fclose(file)==NULL)
+		return -1;
 	return 0;
 }
